@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -52,15 +53,14 @@ public class robotInit {
         motorBR = hardwareMap.get(DcMotor.class, "motor_br");
         elbowMotor = hardwareMap.get(DcMotor.class, "elbowMotor");
         spinnyThing = hardwareMap.get(DcMotor.class, "spinnyThing");
-        //intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
+        // Set the direction of the DC motors
         motorFL.setDirection(DcMotor.Direction.FORWARD);
         motorFR.setDirection(DcMotor.Direction.REVERSE);
-        motorBR.setDirection(DcMotor.Direction.REVERSE);
         motorBL.setDirection(DcMotor.Direction.FORWARD);
+        motorBR.setDirection(DcMotor.Direction.REVERSE);
         elbowMotor.setDirection(DcMotor.Direction.FORWARD);
         spinnyThing.setDirection(DcMotor.Direction.FORWARD);
-        //intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all DC motors to zero power
         motorBL.setPower(0);
@@ -69,7 +69,6 @@ public class robotInit {
         motorFL.setPower(0);
         elbowMotor.setPower(0);
         spinnyThing.setPower(0);
-        //intakeMotor.setPower(0);
 
 
         // Set all motors to run without encoders.
@@ -86,9 +85,6 @@ public class robotInit {
         // Define and initialize ALL installed servos.
         freightSnatcher1 = hardwareMap.get(Servo.class, "freightSnatcher1");
         freightSnatcher2 = hardwareMap.get(Servo.class, "freightSnatcher2");
-        //TODO update name 'wobbleSnatcher' to 'freightSnatcher' on phone
-
-        //ringFlicker = hardwareMap.get(Servo.class, "ringFlicker");
 
 
         //init servos
