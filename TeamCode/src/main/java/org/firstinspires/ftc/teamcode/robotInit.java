@@ -19,14 +19,14 @@ public class robotInit {
     //public DcMotor intakeMotor;
 
     public Servo freightSnatcher1; //freight claw 1
-    public Servo freightSnatcher2; //freight claw 2
+    //public Servo freightSnatcher2; //freight claw 2
     //public Servo ringFlicker; // potential carousel spinner
 
     //from Encoder Sample
     double     COUNTS_PER_MOTOR_REV    = 537.7 ;
     double     WHEEL_DIAMETER_INCHES   = 4.0 ;  // For figuring circumference
     double     COUNTS_PER_INCH         = COUNTS_PER_MOTOR_REV / (WHEEL_DIAMETER_INCHES * Math.PI);
-    double     DRIVE_SPEED             = 0.95;
+    double     DRIVE_SPEED             = 0.45;
     double     teleOP_FORWARD_SPEED    = 1;
 
     /* local OpMode members. */
@@ -84,12 +84,12 @@ public class robotInit {
 
         // Define and initialize ALL installed servos.
         freightSnatcher1 = hardwareMap.get(Servo.class, "freightSnatcher1");
-        freightSnatcher2 = hardwareMap.get(Servo.class, "freightSnatcher2");
+        //freightSnatcher2 = hardwareMap.get(Servo.class, "freightSnatcher2");
 
 
         //init servos
-        freightSnatcher1.setPosition(1);
-        freightSnatcher2.setPosition(1);
+        freightSnatcher1.setPosition(0.72);
+        //freightSnatcher2.setPosition(0.4);
 
     }
 }

@@ -5,21 +5,21 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
+//import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+//import org.opencv.core.Core;
+//import org.opencv.core.Mat;
+//import org.opencv.core.Point;
+//import org.opencv.core.Rect;
+//import org.opencv.core.Scalar;
+//import org.opencv.imgproc.Imgproc;
+//import org.openftc.easyopencv.OpenCvCamera;
+//import org.openftc.easyopencv.OpenCvCameraFactory;
+//import org.openftc.easyopencv.OpenCvCameraRotation;
+//import org.openftc.easyopencv.OpenCvPipeline;
 
 
-    @Autonomous(name="Blue-Auto1", group="Pushbot")
-    public class autonomousBlue extends LinearOpMode {
+    @Autonomous(name="Blue-Carousel", group="Pushbot")
+    public class BlueCarousel extends LinearOpMode {
 
         public robotInit robot = new robotInit();
         ElapsedTime runtime = new ElapsedTime();
@@ -42,12 +42,12 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
             // STEP 1 - Delivering duck on carousel
 
-            // Navigate toward carousel
-            turnRight(23);
-            moveForward(27.3);
+            //Go towards carousel wheel
+            strafeRight(22);
+            turnRight(19);
 
-            // Touch wheel to carousel in order to spin it
-            robot.spinnyThing.setPower(0.5);
+            //Touch wheel to carousel in order to spin it
+            robot.spinnyThing.setPower(-0.40);
 
             runtime.reset();
             while (opModeIsActive() && (runtime.seconds() < 2)) {
@@ -57,23 +57,49 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
             robot.spinnyThing.setPower(0);
 
-            // STEP 2 - Place the preloaded block on alliance shipping hub
+            //head to the warehouse
+            turnLeft(43);
+            moveForward(105);
 
-            // Go toward hub and place block on hub
-            turnLeft(39);
-            moveForward(40);
-            placeFreight();
 
-            // STEP 3 - Park robot in warehouse
-            turnLeft(15);
-            moveForward(100);
+            //                                                         NOTE: CODE TO GOT TO WAREHOUSE ONLY
+//        turnLeft(25);
+//        moveForward(60);
+
+
+//            // Navigate toward carousel
+//            turnRight(23);
+//            moveForward(29.0);
+//            turnLeft(4);
+//
+//            // Touch wheel to carousel in order to spin it
+//            robot.spinnyThing.setPower(-0.3);
+//
+//            runtime.reset();
+//            while (opModeIsActive() && (runtime.seconds() < 2.5)) {
+//                telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+//                telemetry.update();
+//            }
+//
+//            robot.spinnyThing.setPower(0);
+//
+//            // STEP 2 - Place the preloaded block on alliance shipping hub
+//
+//            // Go toward hub and place block on hub
+////            turnLeft(39);
+////            moveForward(40);
+////            placeFreight();
+//
+//            // STEP 3 - Park robot in warehouse
+//            turnLeft(47);
+//            moveForward(140);
 
         }
 
 
 
-        // FUNCTION TO TURN LEFT
-        public void turnLeft(double inches) {
+        // FUNCTION TO TURN RIGHT
+        public void turnRight(double inches) {
             int newmotorFLTarget;
             int newmotorFRTarget;
             int newmotorBLTarget;
@@ -111,8 +137,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 
-        // FUNCTION TO TURN RIGHT
-        public void turnRight(double inches) {
+        // FUNCTION TO TURN LEFT
+        public void turnLeft(double inches) {
             int newmotorFLTarget;
             int newmotorFRTarget;
             int newmotorBLTarget;
@@ -150,8 +176,89 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 
-        // FUNCTION TO MOVE FORWARD
-        public void moveForward(double inches) {
+        // FUNCTION TO STRAFE LEFT
+        public void strafeLeft(double inches) {
+            int newmotorFLTarget;
+            int newmotorFRTarget;
+            int newmotorBLTarget;
+            int newmotorBRTarget;
+
+            // Determine new target position, and pass to motor controller
+            newmotorFLTarget = robot.motorFL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+            newmotorFRTarget = robot.motorFR.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
+            newmotorBLTarget = robot.motorBL.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
+            newmotorBRTarget = robot.motorBR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+
+            robot.motorFL.setTargetPosition(newmotorFLTarget);
+            robot.motorFR.setTargetPosition(newmotorFRTarget);
+            robot.motorBL.setTargetPosition(newmotorBLTarget);
+            robot.motorBR.setTargetPosition(newmotorBRTarget);
+
+            // Turn On RUN_TO_POSITION
+            // robot moves to set position
+            robot.motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.motorFL.setPower(Math.abs(robot.DRIVE_SPEED));
+            robot.motorFR.setPower(Math.abs(robot.DRIVE_SPEED));
+            robot.motorBL.setPower(Math.abs(robot.DRIVE_SPEED));
+            robot.motorBR.setPower(Math.abs(robot.DRIVE_SPEED));
+            runtime.reset();
+            while (opModeIsActive() && (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy())) {
+                // Display it for the driver.
+                telemetry.addData("Strafing left", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
+                telemetry.update();
+            }
+        }
+
+
+
+
+        // FUNCTION TO STRAFE RIGHT
+        public void strafeRight(double inches) {
+            int newmotorFLTarget;
+            int newmotorFRTarget;
+            int newmotorBLTarget;
+            int newmotorBRTarget;
+
+            // Determine new target position, and pass to motor controller
+            newmotorFLTarget = robot.motorFL.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
+            newmotorFRTarget = robot.motorFR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+            newmotorBLTarget = robot.motorBL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+            newmotorBRTarget = robot.motorBR.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
+
+            robot.motorFL.setTargetPosition(newmotorFLTarget);
+            robot.motorFR.setTargetPosition(newmotorFRTarget);
+            robot.motorBL.setTargetPosition(newmotorBLTarget);
+            robot.motorBR.setTargetPosition(newmotorBRTarget);
+
+            // Turn On RUN_TO_POSITION
+            // robot moves to set position
+            robot.motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.motorFL.setPower(Math.abs(robot.DRIVE_SPEED));
+            robot.motorFR.setPower(Math.abs(robot.DRIVE_SPEED));
+            robot.motorBL.setPower(Math.abs(robot.DRIVE_SPEED));
+            robot.motorBR.setPower(Math.abs(robot.DRIVE_SPEED));
+            runtime.reset();
+            while (opModeIsActive() && (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy())) {
+                // Display it for the driver.
+                telemetry.addData("Strafing right", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
+                telemetry.update();
+            }
+        }
+
+
+
+
+
+        // FUNCTION TO MOVE BACKWARD
+        public void moveBackward(double inches) {
             int newmotorFLTarget;
             int newmotorFRTarget;
             int newmotorBLTarget;
@@ -189,8 +296,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 
-        // FUNCTION TO MOVE BACKWARDS
-        public void moveBackwards(double inches) {
+        // FUNCTION TO MOVE FORWARD
+        public void moveForward(double inches) {
             int newmotorFLTarget;
             int newmotorFRTarget;
             int newmotorBLTarget;
@@ -248,64 +355,64 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 
-        //RAISE ARM FUNCTION
-        public void raise(double count) {
-
-            int newElbowMotorTarget;
-
-            // Determine new target position, and pass to motor controller
-            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() + (int) (count);
-            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
-
-        }
-
-
-
-        //LOWER ARM FUNCTION
-        public void lower(double count) {
-
-            int newElbowMotorTarget;
-
-            // Determine new target position, and pass to motor controller
-            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
-            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
-
-        }
-
-
-
-        public void placeFreight(){
-            //move motor down
-            robot.elbowMotor.setPower(0.2);
-            runtime.reset();
-            while (runtime.seconds() < 0.6){
-            }
-
-            //unclamp servo
-            robot.elbowMotor.setPower(0);
-            robot.freightSnatcher1.setPosition(0.6);
-
-            //wait
-            runtime.reset();
-            while (runtime.seconds() < 1){
-            }
-
-            //move arm back up
-            robot.elbowMotor.setPower(-0.2);
-            runtime.reset();
-            while (runtime.seconds() < 0.5){
-            }
-
-            robot.elbowMotor.setPower(0);
-        }
+//        //RAISE ARM FUNCTION
+//        public void raise(double count) {
+//
+//            int newElbowMotorTarget;
+//
+//            // Determine new target position, and pass to motor controller
+//            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() + (int) (count);
+//            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+//
+//        }
+//
+//
+//
+//        //LOWER ARM FUNCTION
+//        public void lower(double count) {
+//
+//            int newElbowMotorTarget;
+//
+//            // Determine new target position, and pass to motor controller
+//            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
+//            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+//
+//        }
+//
+//
+//
+//        public void placeFreight(){
+//            //move motor down
+//            robot.elbowMotor.setPower(0.2);
+//            runtime.reset();
+//            while (runtime.seconds() < 0.6){
+//            }
+//
+//            //unclamp servo
+//            robot.elbowMotor.setPower(0);
+//            robot.freightSnatcher1.setPosition(0.6);
+//
+//            //wait
+//            runtime.reset();
+//            while (runtime.seconds() < 1){
+//            }
+//
+//            //move arm back up
+//            robot.elbowMotor.setPower(-0.2);
+//            runtime.reset();
+//            while (runtime.seconds() < 0.5){
+//            }
+//
+//            robot.elbowMotor.setPower(0);
+//        }
 }

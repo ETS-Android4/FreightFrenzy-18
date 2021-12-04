@@ -13,35 +13,46 @@ public class RedTeleOp extends LinearOpMode {
 //        boolean spinnyWheely = false;
 
         boolean freightSnatcher1on = true;
-        boolean freightSnatcher2on = false;
+        //boolean freightSnatcher2on = false;
 
 
         waitForStart();
 
         while (opModeIsActive()) {
 
-            double vertical = gamepad1.left_stick_y; //move forward, backward
-            double turn = gamepad1.right_stick_x; //turn left, right
+            double vertical = 0.55 * (gamepad1.left_stick_y); //move forward, backward
+            double turn = 0.55 * (gamepad1.right_stick_x); //turn left, right
+            double horizontal = 0.55 * (gamepad1.left_stick_x); //move left, right
             double arm_control = 0.5 * (gamepad1.left_trigger - gamepad1.right_trigger); //arm up,down
+
 
             //fudge isn't being used
             //double fudge = 0.25; //TODO decrease speed with fudge factor/power curve so movements are not as jerky
 
-            //driving for rhino (plain, flat) wheels
-            robot.motorFL.setPower(vertical - turn);
-            robot.motorFR.setPower(vertical + turn); //if verticle = 0, turn=-1, then vertical - turn = forward
-            robot.motorBL.setPower(vertical - turn);
-            robot.motorBR.setPower(vertical + turn);
+            //Driving for mecnum wheels
+            robot.motorFL.setPower(vertical - horizontal - turn);
+            robot.motorFR.setPower(vertical + horizontal + turn);
+            robot.motorBL.setPower(vertical + horizontal - turn);
+            robot.motorBR.setPower(vertical - horizontal + turn);
+
+//            //Driving for rhino (plain, flat) wheels
+//            robot.motorFL.setPower(vertical - turn);
+//            robot.motorFR.setPower(vertical + turn); //if vertical = 0, turn=-1, then vertical - turn = forward
+//            robot.motorBL.setPower(vertical - turn);
+//            robot.motorBR.setPower(vertical + turn);
 
             //arm control
             robot.elbowMotor.setPower(arm_control);
 
+
             // Display it for the driver.
             telemetry.addData("freightSnatcher1", freightSnatcher1on);
-            telemetry.addData("freightSnatcher2", freightSnatcher2on);
+            //telemetry.addData("freightSnatcher2", freightSnatcher2on);
             telemetry.update();
 
-            if (gamepad1.left_bumper) {
+
+
+            if (gamepad1.right_bumper) {
                 //clamps the servo that releases the freight
                 if (freightSnatcher1on) {
                     robot.freightSnatcher1.setPosition(1);
@@ -63,6 +74,16 @@ public class RedTeleOp extends LinearOpMode {
                     telemetry.update();
                 }
             }
+
+
+            if (gamepad1.b) { //spin carousel wheel
+                robot.spinnyThing.setPower(0.3);
+            }
+            else {
+                robot.spinnyThing.setPower(0);
+            }
+        }
+
 
 //            if (gamepad1.right_bumper) { //clamp freight servo
 //                //release the wrist servo
@@ -87,39 +108,32 @@ public class RedTeleOp extends LinearOpMode {
 //                }
 //            }
 
-            if (gamepad1.dpad_up) { //clamp freight servo
-                //release the wrist servo
-                double newPosition = robot.freightSnatcher2.getPosition() + 0.1;
-                robot.freightSnatcher2.setPosition(newPosition);
+//            if (gamepad1.dpad_up) { //clamp freight servo
+//                //release the wrist servo
+//                double newPosition = robot.freightSnatcher2.getPosition() + 0.1;
+//                robot.freightSnatcher2.setPosition(newPosition);
+//
+//                runtime.reset();
+//                while (opModeIsActive() && (runtime.seconds() < 1)) {
+//                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+//                    telemetry.update();
+//                }
+//            }
+//
+//            if (gamepad1.dpad_down) { //clamp freight servo
+//                //release the wrist servo
+//                double newPosition = robot.freightSnatcher2.getPosition() - 0.1;
+//                robot.freightSnatcher2.setPosition(newPosition);
+//
+//                runtime.reset();
+//                while (opModeIsActive() && (runtime.seconds() < 1)) {
+//                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+//                    telemetry.update();
+//                }
+//            }
 
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1)) {
-                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-                    telemetry.update();
-                }
-            }
-
-            if (gamepad1.dpad_down) { //clamp freight servo
-                //release the wrist servo
-                double newPosition = robot.freightSnatcher2.getPosition() - 0.1;
-                robot.freightSnatcher2.setPosition(newPosition);
-
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1)) {
-                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-                    telemetry.update();
-                }
-            }
 
 
-            if (gamepad1.b) { //spin carousel wheel
-                robot.spinnyThing.setPower(0.4);
-            }
-            else {
-                robot.spinnyThing.setPower(0);
-            }
-
-        }
 
 
 //            //stop intake
