@@ -42,36 +42,31 @@ public class RedTeleOp extends LinearOpMode {
 //            robot.motorBR.setPower(vertical + turn);
 
 
-            while(opModeIsActive()) {
-
-                if(gamepad1.dpad_up) {
-                    robot.freightSnatcher1.setPower(-0.45); //vacuum takes in freight
-                }
-                else if(gamepad1.dpad_down) { //vacuum spews out freight
-                    robot.freightSnatcher1.setPower(0.45); //vacuum spews out freight
-                }
-                else {
-                    robot.freightSnatcher1.setPower(0.0); //vacuum stops
-
-                }
-            }
-
-
             if (gamepad1.b) { //spin carousel wheel
-                robot.spinnyThing.setPower(0.7);
-            }
-            else {
+                robot.spinnyThing.setPower(-0.45);
+            } else {
                 robot.spinnyThing.setPower(0);
             }
 
-
-
-//            //arm control
+            //arm control
             robot.elbowMotor.setPower(arm_control);
+            robot.armLift.setPower(arm_control);
+
+
+            if (gamepad1.left_bumper) {
+                robot.freightSnatcher1.setPower(-0.45); //vacuum takes in freight
+            } else if (gamepad1.right_bumper) { //vacuum spews out freight
+                robot.freightSnatcher1.setPower(0.45); //vacuum spews out freight
+            } else {
+                robot.freightSnatcher1.setPower(0.0); //vacuum stops
+
+            }
+
         }
-//
-//
-//            // Display it for the driver.
+    }
+}
+
+            // Display it for the driver.
 //            telemetry.addData("freightSnatcher1", freightSnatcher1on);
 //            //telemetry.addData("freightSnatcher2", freightSnatcher2on);
 //            telemetry.update();
@@ -100,9 +95,6 @@ public class RedTeleOp extends LinearOpMode {
 //                    telemetry.update();
 //                }
 //            }
-
-
-
 
 
 //            if (gamepad1.right_bumper) { //clamp freight servo
@@ -153,9 +145,6 @@ public class RedTeleOp extends LinearOpMode {
 //            }
 
 
-
-
-
 //            //stop intake
 //            if(gamepad1.left_bumper){
 //                robot.intakeMotor.setPower(0);
@@ -166,16 +155,16 @@ public class RedTeleOp extends LinearOpMode {
 //                robot.intakeMotor.setPower(0.9);
 //            }
 
-            }
+            // }
 //        telemetry.addData("Status", "Running");
 //        telemetry.addLine();
 //        telemetry.update();
-        }
+            // }
 
 
 
 
-        /* FUNCTIONS */
+            /* FUNCTIONS */
 
 //    public void raise(double count) {
 //
@@ -217,6 +206,3 @@ public class RedTeleOp extends LinearOpMode {
 //            telemetry.addData("Path1",  "Running to %7d", newElbowMotorTarget);
 //            telemetry.update();
 //        }
-//
-//    }
-

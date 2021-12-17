@@ -17,6 +17,7 @@ public class robotInit {
     public DcMotor motorBR;
     public DcMotor elbowMotor; //raise/lower arm
     public DcMotor spinnyThing; //carousel motor
+    public DcMotor armLift; //arm lifting mechanism
     //public DcMotor intakeMotor;
 
     public CRServo freightSnatcher1; //freight claw 1
@@ -54,6 +55,7 @@ public class robotInit {
         motorBR = hardwareMap.get(DcMotor.class, "motor_br");
         elbowMotor = hardwareMap.get(DcMotor.class, "elbowMotor");
         spinnyThing = hardwareMap.get(DcMotor.class, "spinnyThing");
+        armLift = hardwareMap.get(DcMotor.class, "armLift");
 
         // Set the direction of the DC motors
         motorFL.setDirection(DcMotor.Direction.REVERSE);
@@ -62,6 +64,7 @@ public class robotInit {
         motorBR.setDirection(DcMotor.Direction.REVERSE);
         elbowMotor.setDirection(DcMotor.Direction.FORWARD);
         spinnyThing.setDirection(DcMotor.Direction.FORWARD);
+        armLift.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all DC motors to zero power
         motorBL.setPower(0);
@@ -70,6 +73,7 @@ public class robotInit {
         motorFL.setPower(0);
         elbowMotor.setPower(0);
         spinnyThing.setPower(0);
+        armLift.setPower(0);
 
 
         // Set all motors to run without encoders.
@@ -80,6 +84,7 @@ public class robotInit {
         motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         elbowMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         spinnyThing.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 

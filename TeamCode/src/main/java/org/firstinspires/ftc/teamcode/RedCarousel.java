@@ -34,12 +34,12 @@ public class RedCarousel extends LinearOpMode {
         // STEP 1 - Delivering duck on carousel
 
         //Go towards carousel wheel
-        strafeLeft(22.6);
+        strafeLeft(20.6);
         turnRight(3);
         strafeLeft(2);
 
         //Touch wheel to carousel in order to spin it
-        robot.spinnyThing.setPower(0.7);
+        robot.spinnyThing.setPower(-0.6);
 
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 4)) {

@@ -43,12 +43,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             // STEP 1 - Delivering duck on carousel
 
             //Go towards carousel wheel
-            strafeRight(22.6);
-            turnLeft(22);
-            moveBackward(3);
+            strafeRight(20.6);
+            turnLeft(19);
+            moveBackward(7);
 
             //Touch wheel to carousel in order to spin it
-            robot.spinnyThing.setPower(-0.7);
+            robot.spinnyThing.setPower(0.6);
 
             runtime.reset();
             while (opModeIsActive() && (runtime.seconds() < 4)) {
@@ -59,7 +59,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             robot.spinnyThing.setPower(0);
 
             //head to the storage unit
-            turnRight(25);
+            turnRight(23);
             moveForward(28);
             turnRight(15);
             //moveForward(2);

@@ -44,10 +44,10 @@ public class BlueTeleOp extends LinearOpMode {
 //            robot.motorBR.setPower(vertical + turn);
 
 
-                if(gamepad1.dpad_up) {
+                if(gamepad1.left_bumper) {
                     robot.freightSnatcher1.setPower(-0.45); //vacuum takes in freight
                 }
-                else if(gamepad1.dpad_down) { //vacuum spews out freight
+                else if(gamepad1.right_bumper) { //vacuum spews out freight
                     robot.freightSnatcher1.setPower(0.45); //vacuum spews out freight
                 }
                 else {
@@ -57,9 +57,20 @@ public class BlueTeleOp extends LinearOpMode {
 
 
 
-//            //arm control FOR NON-CONTINUOUS SERVO
+//            //arm control for elbow and arm lift motors
 
             robot.elbowMotor.setPower(arm_control);
+            robot.armLift.setPower(arm_control);
+
+
+            if (gamepad1.x) { //spin carousel wheel
+                robot.spinnyThing.setPower(0.45);
+            }
+            else {
+                robot.spinnyThing.setPower(0);
+            }
+
+        }
 
 //            // Display it for the driver.
 //            telemetry.addData("freightSnatcher1", freightSnatcher1on);
@@ -90,14 +101,6 @@ public class BlueTeleOp extends LinearOpMode {
 //                }
 //            }
 
-            if (gamepad1.x) { //spin carousel wheel
-                robot.spinnyThing.setPower(-0.7);
-            }
-            else {
-                robot.spinnyThing.setPower(0);
-            }
-
-        }
 
 
 //            // wrist servo movement
