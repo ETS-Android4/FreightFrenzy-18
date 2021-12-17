@@ -34,26 +34,30 @@ public class RedCarousel extends LinearOpMode {
         // STEP 1 - Delivering duck on carousel
 
         //Go towards carousel wheel
-        strafeLeft(21.6);
-        turnLeft(19);
+        strafeLeft(22.6);
+        turnRight(3);
+        strafeLeft(2);
 
         //Touch wheel to carousel in order to spin it
-        robot.spinnyThing.setPower(0.40);
+        robot.spinnyThing.setPower(0.7);
 
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
+        while (opModeIsActive() && (runtime.seconds() < 4)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
         robot.spinnyThing.setPower(0);
 
-        //head to the warehouse
-        turnRight(43);
-        moveForward(105);
+        //head to the storage unit
+        turnLeft(25);
+        moveForward(28);
+        turnLeft(15);
+        //moveForward(2);
 
 
-        //                                                         NOTE: CODE TO GOT TO WAREHOUSE ONLY
+
+        //                                               NOTE: CODE TO GO TO WAREHOUSE ONLY
 //        turnRight(25);
 //        moveForward(60);
 
@@ -93,9 +97,8 @@ public class RedCarousel extends LinearOpMode {
     }
 
 
-
-    // FUNCTION TO TURN LEFT
-    public void turnLeft(double inches) {
+    // FUNCTION TO TURN RIGHT
+    public void turnRight(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -133,8 +136,8 @@ public class RedCarousel extends LinearOpMode {
 
 
 
-    // FUNCTION TO TURN RIGHT
-    public void turnRight(double inches) {
+    // FUNCTION TO TURN LEFT
+    public void turnLeft(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -169,47 +172,6 @@ public class RedCarousel extends LinearOpMode {
             telemetry.update();
         }
     }
-
-
-
-    // FUNCTION TO MOVE FORWARD
-    public void moveForward(double inches) {
-        int newmotorFLTarget;
-        int newmotorFRTarget;
-        int newmotorBLTarget;
-        int newmotorBRTarget;
-
-        // Determine new target position, and pass to motor controller
-        newmotorFLTarget = robot.motorFL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
-        newmotorFRTarget = robot.motorFR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
-        newmotorBLTarget = robot.motorBL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
-        newmotorBRTarget = robot.motorBR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
-
-        robot.motorFL.setTargetPosition(newmotorFLTarget);
-        robot.motorFR.setTargetPosition(newmotorFRTarget);
-        robot.motorBL.setTargetPosition(newmotorBLTarget);
-        robot.motorBR.setTargetPosition(newmotorBRTarget);
-
-        // Turn On RUN_TO_POSITION
-        // robot moves to set position
-        robot.motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        robot.motorFL.setPower(Math.abs(robot.DRIVE_SPEED));
-        robot.motorFR.setPower(Math.abs(robot.DRIVE_SPEED));
-        robot.motorBL.setPower(Math.abs(robot.DRIVE_SPEED));
-        robot.motorBR.setPower(Math.abs(robot.DRIVE_SPEED));
-        runtime.reset();
-        while (opModeIsActive() && (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy())) {
-            // Display it for the driver.
-            telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
-            telemetry.update();
-        }
-    }
-
-
 
 
 
@@ -245,7 +207,7 @@ public class RedCarousel extends LinearOpMode {
         runtime.reset();
         while (opModeIsActive() && (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy())) {
             // Display it for the driver.
-            telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
+            telemetry.addData("Strafing left", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
             telemetry.update();
         }
     }
@@ -253,7 +215,7 @@ public class RedCarousel extends LinearOpMode {
 
 
 
-    // FUNCTION TO STRAFE LEFT
+    // FUNCTION TO STRAFE RIGHT
     public void strafeRight(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
@@ -285,7 +247,7 @@ public class RedCarousel extends LinearOpMode {
         runtime.reset();
         while (opModeIsActive() && (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy())) {
             // Display it for the driver.
-            telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
+            telemetry.addData("Strafing right", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
             telemetry.update();
         }
     }
@@ -294,9 +256,47 @@ public class RedCarousel extends LinearOpMode {
 
 
 
+    // FUNCTION TO MOVE BACKWARD
+    public void moveBackward(double inches) {
+        int newmotorFLTarget;
+        int newmotorFRTarget;
+        int newmotorBLTarget;
+        int newmotorBRTarget;
 
-    // FUNCTION TO MOVE BACKWARDS
-    public void moveBackwards(double inches) {
+        // Determine new target position, and pass to motor controller
+        newmotorFLTarget = robot.motorFL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+        newmotorFRTarget = robot.motorFR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+        newmotorBLTarget = robot.motorBL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+        newmotorBRTarget = robot.motorBR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
+
+        robot.motorFL.setTargetPosition(newmotorFLTarget);
+        robot.motorFR.setTargetPosition(newmotorFRTarget);
+        robot.motorBL.setTargetPosition(newmotorBLTarget);
+        robot.motorBR.setTargetPosition(newmotorBRTarget);
+
+        // Turn On RUN_TO_POSITION
+        // robot moves to set position
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.motorFL.setPower(Math.abs(robot.DRIVE_SPEED));
+        robot.motorFR.setPower(Math.abs(robot.DRIVE_SPEED));
+        robot.motorBL.setPower(Math.abs(robot.DRIVE_SPEED));
+        robot.motorBR.setPower(Math.abs(robot.DRIVE_SPEED));
+        runtime.reset();
+        while (opModeIsActive() && (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy())) {
+            // Display it for the driver.
+            telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
+            telemetry.update();
+        }
+    }
+
+
+
+    // FUNCTION TO MOVE FORWARD
+    public void moveForward(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -354,65 +354,64 @@ public class RedCarousel extends LinearOpMode {
 
 
 
-
-//    //RAISE ARM FUNCTION
-//    public void raise(double count) {
+//        //RAISE ARM FUNCTION
+//        public void raise(double count) {
 //
-//        int newElbowMotorTarget;
+//            int newElbowMotorTarget;
 //
-//        // Determine new target position, and pass to motor controller
-//        newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() + (int) (count);
-//        robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+//            // Determine new target position, and pass to motor controller
+//            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() + (int) (count);
+//            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
 //
-//        // Turn On RUN_TO_POSITION
-//        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            // Turn On RUN_TO_POSITION
+//            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
-//        robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+//            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
 //
-//    }
-//
-//
-//
-//    //LOWER ARM FUNCTION
-//    public void lower(double count) {
-//
-//        int newElbowMotorTarget;
-//
-//        // Determine new target position, and pass to motor controller
-//        newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
-//        robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
-//
-//        // Turn On RUN_TO_POSITION
-//        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//        robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
-//
-//    }
-//
-//
-//
-//    public void placeFreight(){
-//        //move motor down
-//        robot.elbowMotor.setPower(0.2);
-//        runtime.reset();
-//        while (runtime.seconds() < 0.6){
 //        }
 //
-//        //unclamp servo
-//        robot.elbowMotor.setPower(0);
-//        robot.freightSnatcher1.setPosition(0.6);
 //
-//        //wait
-//        runtime.reset();
-//        while (runtime.seconds() < 1){
+//
+//        //LOWER ARM FUNCTION
+//        public void lower(double count) {
+//
+//            int newElbowMotorTarget;
+//
+//            // Determine new target position, and pass to motor controller
+//            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
+//            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+//
 //        }
 //
-//        //move arm back up
-//        robot.elbowMotor.setPower(-0.2);
-//        runtime.reset();
-//        while (runtime.seconds() < 0.5){
-//        }
 //
-//        robot.elbowMotor.setPower(0);
-//    }
+//
+//        public void placeFreight(){
+//            //move motor down
+//            robot.elbowMotor.setPower(0.2);
+//            runtime.reset();
+//            while (runtime.seconds() < 0.6){
+//            }
+//
+//            //unclamp servo
+//            robot.elbowMotor.setPower(0);
+//            robot.freightSnatcher1.setPosition(0.6);
+//
+//            //wait
+//            runtime.reset();
+//            while (runtime.seconds() < 1){
+//            }
+//
+//            //move arm back up
+//            robot.elbowMotor.setPower(-0.2);
+//            runtime.reset();
+//            while (runtime.seconds() < 0.5){
+//            }
+//
+//            robot.elbowMotor.setPower(0);
+//        }
 }

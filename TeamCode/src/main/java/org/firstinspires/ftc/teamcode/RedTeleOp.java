@@ -41,48 +41,68 @@ public class RedTeleOp extends LinearOpMode {
 //            robot.motorBL.setPower(vertical - turn);
 //            robot.motorBR.setPower(vertical + turn);
 
-            //arm control
-            robot.elbowMotor.setPower(arm_control);
 
+            while(opModeIsActive()) {
 
-            // Display it for the driver.
-            telemetry.addData("freightSnatcher1", freightSnatcher1on);
-            //telemetry.addData("freightSnatcher2", freightSnatcher2on);
-            telemetry.update();
-
-
-
-            if (gamepad1.right_bumper) {
-                //clamps the servo that releases the freight
-                if (freightSnatcher1on) {
-                    robot.freightSnatcher1.setPosition(1);
-                    freightSnatcher1on = false;
-                    telemetry.addLine("servo1 clamped");
-                    telemetry.update();
+                if(gamepad1.dpad_up) {
+                    robot.freightSnatcher1.setPower(-0.45); //vacuum takes in freight
                 }
-                //releases the servo that clamps the freight
+                else if(gamepad1.dpad_down) { //vacuum spews out freight
+                    robot.freightSnatcher1.setPower(0.45); //vacuum spews out freight
+                }
                 else {
-                    robot.freightSnatcher1.setPosition(0.5);
-                    freightSnatcher1on = true;
-                    telemetry.addLine("servo1 released");
-                    telemetry.update();
-                }
+                    robot.freightSnatcher1.setPower(0.0); //vacuum stops
 
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1)) {
-                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-                    telemetry.update();
                 }
             }
 
 
             if (gamepad1.b) { //spin carousel wheel
-                robot.spinnyThing.setPower(0.3);
+                robot.spinnyThing.setPower(0.7);
             }
             else {
                 robot.spinnyThing.setPower(0);
             }
+
+
+
+//            //arm control
+            robot.elbowMotor.setPower(arm_control);
         }
+//
+//
+//            // Display it for the driver.
+//            telemetry.addData("freightSnatcher1", freightSnatcher1on);
+//            //telemetry.addData("freightSnatcher2", freightSnatcher2on);
+//            telemetry.update();
+//
+//
+//
+//            if (gamepad1.right_bumper) {
+//                //clamps the servo that releases the freight
+//                if (freightSnatcher1on) {
+//                    robot.freightSnatcher1.setPosition(1);
+//                    freightSnatcher1on = false;
+//                    telemetry.addLine("servo1 clamped");
+//                    telemetry.update();
+//                }
+//                //releases the servo that clamps the freight
+//                else {
+//                    robot.freightSnatcher1.setPosition(0.5);
+//                    freightSnatcher1on = true;
+//                    telemetry.addLine("servo1 released");
+//                    telemetry.update();
+//                }
+//
+//                runtime.reset();
+//                while (opModeIsActive() && (runtime.seconds() < 1)) {
+//                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+//                    telemetry.update();
+//                }
+//            }
+
+
+
 
 
 //            if (gamepad1.right_bumper) { //clamp freight servo

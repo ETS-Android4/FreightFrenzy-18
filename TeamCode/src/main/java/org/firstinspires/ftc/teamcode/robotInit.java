@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+
 
 
 //@Disabled
@@ -18,7 +19,7 @@ public class robotInit {
     public DcMotor spinnyThing; //carousel motor
     //public DcMotor intakeMotor;
 
-    public Servo freightSnatcher1; //freight claw 1
+    public CRServo freightSnatcher1; //freight claw 1
     //public Servo freightSnatcher2; //freight claw 2
     //public Servo ringFlicker; // potential carousel spinner
 
@@ -55,8 +56,8 @@ public class robotInit {
         spinnyThing = hardwareMap.get(DcMotor.class, "spinnyThing");
 
         // Set the direction of the DC motors
-        motorFL.setDirection(DcMotor.Direction.FORWARD);
-        motorFR.setDirection(DcMotor.Direction.REVERSE);
+        motorFL.setDirection(DcMotor.Direction.REVERSE);
+        motorFR.setDirection(DcMotor.Direction.FORWARD);
         motorBL.setDirection(DcMotor.Direction.FORWARD);
         motorBR.setDirection(DcMotor.Direction.REVERSE);
         elbowMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -83,12 +84,12 @@ public class robotInit {
 
 
         // Define and initialize ALL installed servos.
-        freightSnatcher1 = hardwareMap.get(Servo.class, "freightSnatcher1");
+        freightSnatcher1 = hardwareMap.get(CRServo.class, "freightSnatcher1");
         //freightSnatcher2 = hardwareMap.get(Servo.class, "freightSnatcher2");
 
 
         //init servos
-        freightSnatcher1.setPosition(0.72);
+        //freightSnatcher1.setPosition(0.72);
         //freightSnatcher2.setPosition(0.4);
 
     }

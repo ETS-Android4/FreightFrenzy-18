@@ -45,32 +45,8 @@ public class BlueWarehouse extends LinearOpMode {
 
         // STEP 1 - Delivering duck on carousel
 
-        //Go towards carousel wheel
-        strafeRight(22);
-        turnRight(19);
-
-        //Touch wheel to carousel in order to spin it
-        robot.spinnyThing.setPower(-0.40);
-
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        robot.spinnyThing.setPower(0);
-
-        //head to the warehouse
-        turnLeft(43);
-        moveForward(105);
-
-
-
-
-//                                                         NOTE: CODE TO GOT TO WAREHOUSE ONLY
-//        turnLeft(25);
-//        moveForward(60);
-
+        //Go towards warehouse
+        strafeLeft(35);
 
 
 

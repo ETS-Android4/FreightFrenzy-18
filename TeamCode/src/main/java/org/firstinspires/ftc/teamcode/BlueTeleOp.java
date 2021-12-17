@@ -16,6 +16,7 @@ public class BlueTeleOp extends LinearOpMode {
         boolean freightSnatcher1on = true;
         //boolean freightSnatcher2on = false;
 
+        robot.freightSnatcher1.resetDeviceConfigurationForOpMode();
 
         waitForStart();
 
@@ -30,7 +31,7 @@ public class BlueTeleOp extends LinearOpMode {
             //fudge isn't being used
             //double fudge = 0.25; //TODO decrease speed with fudge factor/power curve so movements are not as jerky
 
-            //Driving for mecnum wheels
+            //Driving for mecanum wheels
             robot.motorFL.setPower(vertical - horizontal - turn);
             robot.motorFR.setPower(vertical + horizontal + turn);
             robot.motorBL.setPower(vertical + horizontal - turn);
@@ -43,40 +44,54 @@ public class BlueTeleOp extends LinearOpMode {
 //            robot.motorBR.setPower(vertical + turn);
 
 
-            //arm control
+                if(gamepad1.dpad_up) {
+                    robot.freightSnatcher1.setPower(-0.45); //vacuum takes in freight
+                }
+                else if(gamepad1.dpad_down) { //vacuum spews out freight
+                    robot.freightSnatcher1.setPower(0.45); //vacuum spews out freight
+                }
+                else {
+                    robot.freightSnatcher1.setPower(0.0); //vacuum stops
+
+                }
+
+
+
+//            //arm control FOR NON-CONTINUOUS SERVO
+
             robot.elbowMotor.setPower(arm_control);
 
-            // Display it for the driver.
-            telemetry.addData("freightSnatcher1", freightSnatcher1on);
-            //telemetry.addData("freightSnatcher2", freightSnatcher2on);
-            telemetry.update();
+//            // Display it for the driver.
+//            telemetry.addData("freightSnatcher1", freightSnatcher1on);
+//            //telemetry.addData("freightSnatcher2", freightSnatcher2on);
+//            telemetry.update();
 
-           // clamp servo movement
-            if (gamepad1.right_bumper) {
-                //clamps the servo that releases the freight
-                if (freightSnatcher1on) {
-                    robot.freightSnatcher1.setPosition(1);
-                    freightSnatcher1on = false;
-                    telemetry.addLine("servo1 clamped");
-                    telemetry.update();
-                }
-                //releases the servo that clamps the freight
-                else {
-                    robot.freightSnatcher1.setPosition(0.5);
-                    freightSnatcher1on = true;
-                    telemetry.addLine("servo1 released");
-                    telemetry.update();
-                }
-
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1)) {
-                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-                    telemetry.update();
-                }
-            }
+//           // clamp servo movement
+//            if (gamepad1.right_bumper) {
+//                //clamps the servo that releases the freight
+//                if (freightSnatcher1on) {
+//                    robot.freightSnatcher1.setPosition(1);
+//                    freightSnatcher1on = false;
+//                    telemetry.addLine("servo1 clamped");
+//                    telemetry.update();
+//                }
+//                //releases the servo that clamps the freight
+//                else {
+//                    robot.freightSnatcher1.setPosition(0.5);
+//                    freightSnatcher1on = true;
+//                    telemetry.addLine("servo1 released");
+//                    telemetry.update();
+//                }
+//
+//                runtime.reset();
+//                while (opModeIsActive() && (runtime.seconds() < 1)) {
+//                    telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+//                    telemetry.update();
+//                }
+//            }
 
             if (gamepad1.x) { //spin carousel wheel
-                robot.spinnyThing.setPower(-0.3);
+                robot.spinnyThing.setPower(-0.7);
             }
             else {
                 robot.spinnyThing.setPower(0);

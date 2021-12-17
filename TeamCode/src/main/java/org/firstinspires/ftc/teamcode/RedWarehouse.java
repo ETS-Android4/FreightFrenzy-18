@@ -32,30 +32,8 @@ public class RedWarehouse extends LinearOpMode {
 
         // STEP 1 - Delivering duck on carousel
 
-        //Go towards carousel wheel
-        strafeRight(21.5);
-        turnRight(19);
-
-        //Touch wheel to carousel in order to spin it
-        robot.spinnyThing.setPower(0.40);
-
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        robot.spinnyThing.setPower(0);
-
-        //head to the warehouse
-        turnLeft(43);
-        moveForward(105);
-
-
-
-        //                                                         NOTE: CODE TO GOT TO WAREHOUSE ONLY
-//        turnRight(25);
-//        moveForward(60);
+        //Go towards warehouse
+        strafeRight(35);
 
 
 
@@ -95,8 +73,8 @@ public class RedWarehouse extends LinearOpMode {
 
 
 
-    // FUNCTION TO TURN LEFT
-    public void turnLeft(double inches) {
+    // FUNCTION TO TURN RIGHT
+    public void turnRight(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -134,8 +112,8 @@ public class RedWarehouse extends LinearOpMode {
 
 
 
-    // FUNCTION TO TURN RIGHT
-    public void turnRight(double inches) {
+    // FUNCTION TO TURN LEFT
+    public void turnLeft(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -170,6 +148,7 @@ public class RedWarehouse extends LinearOpMode {
             telemetry.update();
         }
     }
+
 
 
 
@@ -255,8 +234,9 @@ public class RedWarehouse extends LinearOpMode {
 
 
 
-    // FUNCTION TO MOVE FORWARD
-    public void moveForward(double inches) {
+
+    // FUNCTION TO MOVE BACKWARD
+    public void moveBackward(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -294,8 +274,8 @@ public class RedWarehouse extends LinearOpMode {
 
 
 
-    // FUNCTION TO MOVE BACKWARDS
-    public void moveBackwards(double inches) {
+    // FUNCTION TO MOVE FORWARD
+    public void moveForward(double inches) {
         int newmotorFLTarget;
         int newmotorFRTarget;
         int newmotorBLTarget;
@@ -353,65 +333,64 @@ public class RedWarehouse extends LinearOpMode {
 
 
 
-
-//    //RAISE ARM FUNCTION
-//    public void raise(double count) {
+//        //RAISE ARM FUNCTION
+//        public void raise(double count) {
 //
-//        int newElbowMotorTarget;
+//            int newElbowMotorTarget;
 //
-//        // Determine new target position, and pass to motor controller
-//        newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() + (int) (count);
-//        robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+//            // Determine new target position, and pass to motor controller
+//            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() + (int) (count);
+//            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
 //
-//        // Turn On RUN_TO_POSITION
-//        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            // Turn On RUN_TO_POSITION
+//            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
-//        robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+//            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
 //
-//    }
-//
-//
-//
-//    //LOWER ARM FUNCTION
-//    public void lower(double count) {
-//
-//        int newElbowMotorTarget;
-//
-//        // Determine new target position, and pass to motor controller
-//        newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
-//        robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
-//
-//        // Turn On RUN_TO_POSITION
-//        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//        robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
-//
-//    }
-//
-//
-//
-//    public void placeFreight(){
-//        //move motor down
-//        robot.elbowMotor.setPower(0.2);
-//        runtime.reset();
-//        while (runtime.seconds() < 0.6){
 //        }
 //
-//        //unclamp servo
-//        robot.elbowMotor.setPower(0);
-//        robot.freightSnatcher1.setPosition(0.6);
 //
-//        //wait
-//        runtime.reset();
-//        while (runtime.seconds() < 1){
+//
+//        //LOWER ARM FUNCTION
+//        public void lower(double count) {
+//
+//            int newElbowMotorTarget;
+//
+//            // Determine new target position, and pass to motor controller
+//            newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
+//            robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+//
 //        }
 //
-//        //move arm back up
-//        robot.elbowMotor.setPower(-0.2);
-//        runtime.reset();
-//        while (runtime.seconds() < 0.5){
-//        }
 //
-//        robot.elbowMotor.setPower(0);
-//    }
+//
+//        public void placeFreight(){
+//            //move motor down
+//            robot.elbowMotor.setPower(0.2);
+//            runtime.reset();
+//            while (runtime.seconds() < 0.6){
+//            }
+//
+//            //unclamp servo
+//            robot.elbowMotor.setPower(0);
+//            robot.freightSnatcher1.setPosition(0.6);
+//
+//            //wait
+//            runtime.reset();
+//            while (runtime.seconds() < 1){
+//            }
+//
+//            //move arm back up
+//            robot.elbowMotor.setPower(-0.2);
+//            runtime.reset();
+//            while (runtime.seconds() < 0.5){
+//            }
+//
+//            robot.elbowMotor.setPower(0);
+//        }
 }
