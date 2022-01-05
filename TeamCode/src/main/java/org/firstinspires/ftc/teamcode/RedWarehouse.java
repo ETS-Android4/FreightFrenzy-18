@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //import org.openftc.easyopencv.OpenCvCamera;
+//ignore this
 
 
 @Autonomous(name="Red-Warehouse", group="Pushbot")

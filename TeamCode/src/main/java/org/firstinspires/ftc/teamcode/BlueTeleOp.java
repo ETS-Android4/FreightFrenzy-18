@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+//ignore this
 
 @TeleOp
 public class BlueTeleOp extends LinearOpMode {
