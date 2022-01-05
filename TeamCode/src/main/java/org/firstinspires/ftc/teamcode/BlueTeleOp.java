@@ -45,10 +45,10 @@ public class BlueTeleOp extends LinearOpMode {
 
 
                 if(gamepad1.left_bumper) {
-                    robot.freightSnatcher1.setPower(-0.45); //vacuum takes in freight
+                    robot.freightSnatcher1.setPower(-1); //vacuum takes in freight
                 }
                 else if(gamepad1.right_bumper) { //vacuum spews out freight
-                    robot.freightSnatcher1.setPower(0.45); //vacuum spews out freight
+                    robot.freightSnatcher1.setPower(1); //vacuum spews out freight
                 }
                 else {
                     robot.freightSnatcher1.setPower(0.0); //vacuum stops
@@ -64,7 +64,7 @@ public class BlueTeleOp extends LinearOpMode {
 
 
             if (gamepad1.x) { //spin carousel wheel
-                robot.spinnyThing.setPower(0.45);
+                robot.spinnyThing.setPower(0.7);
             }
             else {
                 robot.spinnyThing.setPower(0);

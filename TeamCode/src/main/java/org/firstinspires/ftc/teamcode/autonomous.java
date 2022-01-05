@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -16,7 +17,6 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-
 
 
     @Autonomous(name="Auto", group="Pushbot")
@@ -44,12 +44,12 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
             startEncoderMode();
 
-            webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-                @Override
-                public void onOpened() {
-                    webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-                }
-            });
+//            webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+//                @Override
+//                public void onOpened() {
+//                    webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+//                }
+//            });
 
 
             //Telemetry for testing barcode detection

@@ -43,7 +43,7 @@ public class RedTeleOp extends LinearOpMode {
 
 
             if (gamepad1.b) { //spin carousel wheel
-                robot.spinnyThing.setPower(-0.45);
+                robot.spinnyThing.setPower(-0.7);
             } else {
                 robot.spinnyThing.setPower(0);
             }
