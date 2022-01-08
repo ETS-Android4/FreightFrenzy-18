@@ -65,7 +65,7 @@ public class BlueTeleOp extends LinearOpMode {
 
 
             if (gamepad1.x) { //spin carousel wheel
-                robot.spinnyThing.setPower(0.7);
+                robot.spinnyThing.setPower(0.75);
             }
             else {
                 robot.spinnyThing.setPower(0);

@@ -40,27 +40,10 @@ public class webcamtest extends LinearOpMode {
         sleep(1000);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        telemetry.addData("CameraMonitorViewID", cameraMonitorViewId);
-        telemetry.update();
-        sleep(1000);
-
 
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "webcam");
-        telemetry.addData("Webcam Status", webcamName);
-        telemetry.update();
-        sleep(1000);
 
         OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        telemetry.addData("Webcam factory", webcam);
-        telemetry.update();
-        sleep(1000);
-
-
-        //webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam"), cameraMonitorViewId);
-
-//        telemetry.addData("Status:", "WebcamInstance");
-//        telemetry.update();
-//        sleep(1000);
 
         pipeline = new DeterminationPipeline();
         webcam.setPipeline(pipeline);
@@ -126,11 +109,11 @@ public class webcamtest extends LinearOpMode {
 
             //STEP 2 -- go towards carousel wheel
             turnLeft(19);
-           // strafeRight(18.6);
-            moveBackward(25);
+           //strafeRight(18.6);
+            moveBackward(21.4);
 
             //Touch wheel to carousel in order to spin it
-            robot.spinnyThing.setPower(-0.7);
+            robot.spinnyThing.setPower(0.7);
 
             runtime.reset();
             while (runtime.seconds() < 5) {
@@ -141,32 +124,35 @@ public class webcamtest extends LinearOpMode {
             robot.spinnyThing.setPower(0);
 
             //STEP 3 -- head to the alliance hub
-            turnRight(2);
-            strafeRight(44);
-            moveForward(30);
+            if (pipeline.position == webcamtest.DeterminationPipeline.ElementPosition.Level3) {
+                strafeRight(7);
+                moveBackward(3);
+            }
+                strafeRight(42.5);
 
+            moveForward(22);
             if (level == 1) {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-50);
+                raise(-100);
+                moveForward(2);
 
             } else if (level == 2) {
                 telemetry.addData("Detected", "level 2!");
                 telemetry.update();
 
-                raise(-140);
+                raise(-200);
+                moveForward(2);
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                telemetry.update();
-
-                raise(-140);
+                raise(-330);
+                moveForward(5);
 
             }
 
             // place freight on hub
-            moveForward(2);
             robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
             runtime.reset();
             while (runtime.seconds() < 3) {
@@ -176,9 +162,9 @@ public class webcamtest extends LinearOpMode {
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
             //STEP 4 -- head to storage unit
-            moveBackward(36);
-            strafeLeft(20);
-//
+            moveBackward(35);
+            strafeLeft(17.5);
+
        }
     }
 
