@@ -17,8 +17,6 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
-//ignore this
-
 
 @Autonomous(name="Webcam Test", group="Pushbot")
 public class webcamtest extends LinearOpMode {
@@ -70,8 +68,9 @@ public class webcamtest extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        boolean opModeFinished = false;
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !opModeFinished) {
 
             // Telemetry for testing barcode detection
             telemetry.addData("Analysis1", pipeline.getAnalysis1());
@@ -109,8 +108,7 @@ public class webcamtest extends LinearOpMode {
 
             //STEP 2 -- go towards carousel wheel
             turnLeft(19);
-           //strafeRight(18.6);
-            moveBackward(21.4);
+            moveBackward(22);
 
             //Touch wheel to carousel in order to spin it
             robot.spinnyThing.setPower(0.7);
@@ -120,7 +118,6 @@ public class webcamtest extends LinearOpMode {
                 telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                 telemetry.update();
             }
-
             robot.spinnyThing.setPower(0);
 
             //STEP 3 -- head to the alliance hub
@@ -128,26 +125,29 @@ public class webcamtest extends LinearOpMode {
                 strafeRight(7);
                 moveBackward(3);
             }
-                strafeRight(42.5);
-
+            strafeRight(43);
             moveForward(22);
+
             if (level == 1) {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-100);
+                raise(-75);
+                sleep(20);
                 moveForward(2);
 
             } else if (level == 2) {
                 telemetry.addData("Detected", "level 2!");
                 telemetry.update();
 
-                raise(-200);
+                raise(-150);
+                sleep(20);
                 moveForward(2);
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                raise(-330);
+                raise(-260);
+                sleep(20);
                 moveForward(5);
 
             }
@@ -155,16 +155,17 @@ public class webcamtest extends LinearOpMode {
             // place freight on hub
             robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
             runtime.reset();
-            while (runtime.seconds() < 3) {
+            while (runtime.seconds() < 2.5) {
                 telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                 telemetry.update();
             }
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
             //STEP 4 -- head to storage unit
-            moveBackward(35);
-            strafeLeft(17.5);
+            moveBackward(33);
+            strafeLeft(18);
 
+            opModeFinished = true;
        }
     }
 

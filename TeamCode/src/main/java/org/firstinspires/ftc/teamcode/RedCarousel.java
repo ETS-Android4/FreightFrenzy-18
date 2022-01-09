@@ -36,23 +36,13 @@ public class RedCarousel extends LinearOpMode {
         robot.init(hardwareMap);
         telemetry.addData("Status:", "Robot init");
         telemetry.update();
-        sleep(1000);
+        sleep(100);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        telemetry.addData("CameraMonitorViewID", cameraMonitorViewId);
-        telemetry.update();
-        sleep(1000);
-
 
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "webcam");
-        telemetry.addData("Webcam Status", webcamName);
-        telemetry.update();
-        sleep(1000);
 
         OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        telemetry.addData("Webcam factory", webcam);
-        telemetry.update();
-        sleep(1000);
 
 
         //webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam"), cameraMonitorViewId);
@@ -97,7 +87,7 @@ public class RedCarousel extends LinearOpMode {
             telemetry.update();
 
             // Don't burn CPU cycles busy-looping in this sample
-            sleep(1000);
+            sleep(500);
 
 
             // STEP 1 - Detect element on barcode & store in level var
@@ -122,16 +112,15 @@ public class RedCarousel extends LinearOpMode {
             }
             sleep(1000);
 
-//TODO CHANGE tHE ENTIRE THIS THING BELOW :))))))) ASAP :)))))
-
-
-            //STEP 2 -- go towards carousel wheel
-            turnLeft(19);
-            //strafeRight(18.6);
-            moveBackward(21.5);
+    //STEP 2 -- go towards carousel wheel
+            moveForward(12);
+            turnRight(19);
+            moveBackward(26);
+            turnLeft(18);
+            moveBackward(8.5);
 
             //Touch wheel to carousel in order to spin it
-            robot.spinnyThing.setPower(0.7);
+            robot.spinnyThing.setPower(-0.65);
 
             runtime.reset();
             while (runtime.seconds() < 5) {
@@ -141,48 +130,49 @@ public class RedCarousel extends LinearOpMode {
 
             robot.spinnyThing.setPower(0);
 
-            //STEP 3 -- head to the alliance hub
-            strafeRight(7);
-            moveBackward(3);
-            strafeRight(42.5);
-            moveForward(28);
+    //STEP 3 -- head to the alliance hub
+            turnLeft(3.5);
+            moveForward(37);
+            turnRight(19);
+            moveForward(29);
 
             if (level == 1) {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-90);
+                raise(-80);
+                moveForward(3);
 
             } else if (level == 2) {
                 telemetry.addData("Detected", "level 2!");
                 telemetry.update();
 
-                raise(-150);
+                raise(-190);
+                moveForward(2);
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                raise(-260);
+                raise(-280);
+                moveForward(5);
 
             }
 
             // place freight on hub
-            moveForward(1);
             robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
             runtime.reset();
-            while (runtime.seconds() < 3) {
+            while (runtime.seconds() < 2.5) {
                 telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                 telemetry.update();
             }
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
             //STEP 4 -- head to storage unit
-            moveBackward(37);
-            strafeLeft(17.5);
-//
+            moveBackward(36);
+            strafeRight(13);
         }
     }
 
-    // STEP 1 - Detect where the customized element is placed on the field
+// STEP 1 - Detect where the customized element is placed on the field
     public static class DeterminationPipeline extends OpenCvPipeline {
         public enum ElementPosition {
             Level1,
