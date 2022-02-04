@@ -45,7 +45,7 @@ public class RedCarousel extends LinearOpMode {
         OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
 
 
-        //webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam"), cameraMonitorViewId);
+//webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "webcam"), cameraMonitorViewId);
 
 //        telemetry.addData("Status:", "WebcamInstance");
 //        telemetry.update();
@@ -112,7 +112,7 @@ public class RedCarousel extends LinearOpMode {
             }
             sleep(1000);
 
-    //STEP 2 -- go towards carousel wheel
+            //STEP 2 -- go towards carousel wheel
             moveForward(12);
             turnRight(19);
             moveBackward(26);
@@ -123,36 +123,38 @@ public class RedCarousel extends LinearOpMode {
             robot.spinnyThing.setPower(-0.65);
 
             runtime.reset();
-            while (runtime.seconds() < 5) {
+            while (runtime.seconds() < 4) {
                 telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                 telemetry.update();
             }
 
             robot.spinnyThing.setPower(0);
 
-    //STEP 3 -- head to the alliance hub
-            turnLeft(3.5);
+            //STEP 3 -- head to the alliance hub
+            turnLeft(1.25);
             moveForward(37);
             turnRight(19);
+            sleep(5);
             moveForward(29);
 
             if (level == 1) {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-80);
+                raise(-60);
                 moveForward(3);
 
             } else if (level == 2) {
                 telemetry.addData("Detected", "level 2!");
                 telemetry.update();
 
-                raise(-190);
+                raise(-170);
                 moveForward(2);
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                raise(-280);
+                raise(-250);
+                sleep(10);
                 moveForward(5);
 
             }
@@ -160,19 +162,19 @@ public class RedCarousel extends LinearOpMode {
             // place freight on hub
             robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
             runtime.reset();
-            while (runtime.seconds() < 2.5) {
+            while (runtime.seconds() < 1.5) {
                 telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                 telemetry.update();
             }
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
             //STEP 4 -- head to storage unit
-            moveBackward(36);
+            moveBackward(34);
             strafeRight(13);
         }
     }
 
-// STEP 1 - Detect where the customized element is placed on the field
+    // STEP 1 - Detect where the customized element is placed on the field
     public static class DeterminationPipeline extends OpenCvPipeline {
         public enum ElementPosition {
             Level1,

@@ -594,11 +594,14 @@ public class webcamtest extends LinearOpMode {
         // Determine new target position, and pass to motor controller
         newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
         robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
+        robot.armLift.setTargetPosition(newElbowMotorTarget);
 
         // Turn On RUN_TO_POSITION
         robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.armLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
+        robot.armLift.setPower(Math.abs(robot.DRIVE_SPEED));
 
     }
 

@@ -69,7 +69,9 @@ public class BlueWarehouse extends LinearOpMode {
         waitForStart();
 
 
-        while (opModeIsActive()) {
+        boolean opModeFinished = false;
+
+        while (opModeIsActive() && !opModeFinished) {
 
             // Telemetry for testing barcode detection
             telemetry.addData("Analysis1", pipeline.getAnalysis1());
@@ -105,26 +107,29 @@ public class BlueWarehouse extends LinearOpMode {
             sleep(1000);
 
             //go toward hub
-            strafeRight(22);
-            moveForward(20                              );
+            strafeRight(25);
+            moveForward(17);
 
             if (level == 1) {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-90);
+                raise(-62);
+                sleep(1000);
                 moveForward(2);
 
             } else if (level == 2) {
                 telemetry.addData("Detected", "level 2!");
                 telemetry.update();
 
-                raise(-200);
+                raise(-130);
+                sleep(1000);
                 moveForward(2);
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                raise(-330);
+                raise(-200);
+                sleep(1000);
                 moveForward(5);
 
             }
@@ -139,11 +144,14 @@ public class BlueWarehouse extends LinearOpMode {
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
             //STEP 4 -- head to storage unit
-            strafeRight(5);
-            moveBackward(35);
-            turnLeft(20);
+            moveBackward(15);
+            turnLeft(17.5);
+            strafeLeft(8);
             moveForward(60);
-            strafeRight(20);
+            strafeRight(30);
+
+            opModeFinished = true;
+
         }
     }
 

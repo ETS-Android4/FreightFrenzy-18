@@ -17,8 +17,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
-//ignore this
-//double ignore this
+
 
 @Autonomous(name="Red Warehouse", group="Pushbot")
 public class RedWarehouse extends LinearOpMode {
@@ -40,7 +39,8 @@ public class RedWarehouse extends LinearOpMode {
         sleep(1000);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-
+        telemetry.addData("Status:", "waiting");
+        telemetry.update();
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "webcam");
         telemetry.addData("Status:", "Webcam made");
         telemetry.update();
@@ -73,8 +73,10 @@ public class RedWarehouse extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        boolean opModeFinished = false;
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !opModeFinished) {
+
 
             // Telemetry for testing barcode detection
             telemetry.addData("Analysis1", pipeline.getAnalysis1());
@@ -110,46 +112,54 @@ public class RedWarehouse extends LinearOpMode {
             sleep(1000);
 
             //go toward hub
-            strafeLeft(20);
-            moveForward(22);
-            strafeRight(5);
+            strafeLeft(23);
+            moveForward(17);
 
             if (level == 1) {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-100);
-                moveForward(2);
+                raise(-70);
+                sleep(100);
+                moveForward(3);
 
             } else if (level == 2) {
                 telemetry.addData("Detected", "level 2!");
                 telemetry.update();
 
-                raise(-200);
+                raise(-183);
+                sleep(100);
                 moveForward(2);
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                raise(-330);
-                moveForward(5);
+                raise(-200);
+                sleep(200);
+                moveForward(3);
 
             }
 
             // place freight on hub
             robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
             runtime.reset();
-            while (runtime.seconds() < 3) {
+            while (runtime.seconds() < 1.5) {
                 telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
                 telemetry.update();
             }
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
-            //STEP 4 -- head to storage unit
-            strafeLeft(5);
-            moveBackward(35);
-            turnRight(20);
-            moveForward(60);
+            //STEP 4 -- head to warehouse
+            moveBackward(18);
+            turnRight(18.5);
+            strafeRight(5);
+            moveForward(50);
+            strafeLeft(30);
+
+
+            opModeFinished = true;
+            //sleep(8000);
         }
+
     }
 
     // STEP 1 - Detect where the customized element is placed on the field
