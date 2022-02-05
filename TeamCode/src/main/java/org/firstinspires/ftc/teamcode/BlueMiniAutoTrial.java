@@ -111,8 +111,7 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             }
 
             //mini auto for high level
-            boolean miniAutoGoing = false;
-            if (gamepad1.dpad_right && miniAutoGoing) {
+            if (gamepad1.dpad_right) {
 
                 raise(-240);
                 moveForward(20);
@@ -127,11 +126,7 @@ public class BlueMiniAutoTrial extends LinearOpMode {
                 moveBackward(15);
                 lower(200);
                 turnLeft(19);
-                miniAutoGoing = true;
 
-            } else {
-                stop();
-                miniAutoGoing = false;
             }
 
 
@@ -341,11 +336,13 @@ public class BlueMiniAutoTrial extends LinearOpMode {
     public void lower(double count) {
 
         int newElbowMotorTarget;
+        int newArmLiftTarget;
 
         // Determine new target position, and pass to motor controller
         newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
+        newArmLiftTarget = robot.armLift.getCurrentPosition() - (int) (count);
         robot.elbowMotor.setTargetPosition(newElbowMotorTarget);
-        robot.armLift.setTargetPosition(newElbowMotorTarget);
+        robot.armLift.setTargetPosition(newArmLiftTarget);
 
         // Turn On RUN_TO_POSITION
         robot.elbowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
