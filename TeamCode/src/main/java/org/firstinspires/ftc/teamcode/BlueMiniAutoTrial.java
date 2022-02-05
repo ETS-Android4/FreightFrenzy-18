@@ -113,7 +113,7 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             //mini auto for high level
             if (gamepad1.dpad_right) {
 
-                raise(-240);
+                raise(-290);
                 moveForward(20);
                 // place freight on hub
                 robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
@@ -145,6 +145,11 @@ public class BlueMiniAutoTrial extends LinearOpMode {
         int newmotorBLTarget;
         int newmotorBRTarget;
 
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         // Determine new target position, and pass to motor controller
         newmotorFLTarget = robot.motorFL.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
         newmotorFRTarget = robot.motorFR.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
@@ -173,6 +178,10 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
             telemetry.update();
         }
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
 
@@ -183,6 +192,11 @@ public class BlueMiniAutoTrial extends LinearOpMode {
         int newmotorBLTarget;
         int newmotorBRTarget;
 
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         // Determine new target position, and pass to motor controller
         newmotorFLTarget = robot.motorFL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
         newmotorFRTarget = robot.motorFR.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
@@ -211,6 +225,12 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
             telemetry.update();
         }
+
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
 
@@ -220,6 +240,12 @@ public class BlueMiniAutoTrial extends LinearOpMode {
         int newmotorFRTarget;
         int newmotorBLTarget;
         int newmotorBRTarget;
+
+
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Determine new target position, and pass to motor controller
         newmotorFLTarget = robot.motorFL.getCurrentPosition() + (int) (inches * robot.COUNTS_PER_INCH);
@@ -249,6 +275,12 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
             telemetry.update();
         }
+
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
 
@@ -258,6 +290,12 @@ public class BlueMiniAutoTrial extends LinearOpMode {
         int newmotorFRTarget;
         int newmotorBLTarget;
         int newmotorBRTarget;
+
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         // Determine new target position, and pass to motor controller
         newmotorFLTarget = robot.motorFL.getCurrentPosition() - (int) (inches * robot.COUNTS_PER_INCH);
@@ -286,28 +324,34 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             telemetry.addData("Path1", "Running to %7d :%7d", newmotorFLTarget, newmotorFRTarget);
             telemetry.update();
         }
+
+        robot.motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
 
-    // ENCODER FUNCTIONS
-    public void resetEncoder() {
-        robot.motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.elbowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.armLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
-
-    public void startEncoderMode() {
-        //Set Encoder Mode
-        robot.motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.armLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
+//    // ENCODER FUNCTIONS
+//    public void resetEncoder() {
+//        robot.motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.elbowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.armLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//    }
+//
+//    public void startEncoderMode() {
+//        //Set Encoder Mode
+//        robot.motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.armLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//    }
 
 
     //RAISE ARM FUNCTION
@@ -315,6 +359,9 @@ public class BlueMiniAutoTrial extends LinearOpMode {
 
         int Target1;
         int Target2;
+
+        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.armLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Determine new target position, and pass to motor controller
         Target1 = robot.elbowMotor.getCurrentPosition() + (int) (count);
@@ -329,6 +376,15 @@ public class BlueMiniAutoTrial extends LinearOpMode {
         robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
         robot.armLift.setPower(Math.abs(robot.DRIVE_SPEED));
 
+        while (robot.elbowMotor.isBusy() || robot.armLift.isBusy()) {
+            // Display it for the driver.
+            telemetry.addData("Path1", "Running to %7d :%7d", Target1, Target2);
+            telemetry.update();
+        }
+
+        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.armLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
 
@@ -337,6 +393,9 @@ public class BlueMiniAutoTrial extends LinearOpMode {
 
         int newElbowMotorTarget;
         int newArmLiftTarget;
+
+        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.armLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Determine new target position, and pass to motor controller
         newElbowMotorTarget = robot.elbowMotor.getCurrentPosition() - (int) (count);
@@ -350,6 +409,15 @@ public class BlueMiniAutoTrial extends LinearOpMode {
 
         robot.elbowMotor.setPower(Math.abs(robot.DRIVE_SPEED));
         robot.armLift.setPower(Math.abs(robot.DRIVE_SPEED));
+
+        while (robot.motorFL.isBusy() || robot.motorFR.isBusy() || robot.motorBL.isBusy() || robot.motorBR.isBusy()) {
+            // Display it for the driver.
+            telemetry.addData("Path1", "Running to %7d :%7d", newElbowMotorTarget, newArmLiftTarget);
+            telemetry.update();
+        }
+
+        robot.elbowMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.armLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
 }

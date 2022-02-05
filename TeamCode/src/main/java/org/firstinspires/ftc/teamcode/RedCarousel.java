@@ -77,7 +77,9 @@ public class RedCarousel extends LinearOpMode {
         waitForStart();
 
 
-        while (opModeIsActive()) {
+        boolean opModeFinished = false;
+
+        while (opModeIsActive() && !opModeFinished) {
 
             // Telemetry for testing barcode detection
             telemetry.addData("Analysis1", pipeline.getAnalysis1());
@@ -141,7 +143,7 @@ public class RedCarousel extends LinearOpMode {
                 telemetry.addData("Detected", "level 1!");
                 telemetry.update();
 
-                raise(-60);
+                raise(-70);
                 moveForward(3);
 
             } else if (level == 2) {
@@ -169,8 +171,10 @@ public class RedCarousel extends LinearOpMode {
             robot.freightSnatcher1.setPower(0); //vacuum stops
 
             //STEP 4 -- head to storage unit
-            moveBackward(34);
-            strafeRight(13);
+            moveBackward(28);
+            strafeRight(15);
+
+            opModeFinished = true;
         }
     }
 
