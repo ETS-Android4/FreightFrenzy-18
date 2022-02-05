@@ -146,7 +146,7 @@ public class webcamtest extends LinearOpMode {
 
             } else {
                 telemetry.addData("Detected", "level 3!");
-                raise(-260);
+                raise(-240);
                 sleep(20);
                 moveForward(5);
 

@@ -111,9 +111,10 @@ public class BlueMiniAutoTrial extends LinearOpMode {
             }
 
             //mini auto for high level
-            if (gamepad1.dpad_right) {
+            boolean miniAutoGoing = false;
+            if (gamepad1.dpad_right && miniAutoGoing) {
 
-                raise(-290);
+                raise(-240);
                 moveForward(20);
                 // place freight on hub
                 robot.freightSnatcher1.setPower(-1); //vacuum spews out freight
@@ -124,15 +125,20 @@ public class BlueMiniAutoTrial extends LinearOpMode {
                 }
                 robot.freightSnatcher1.setPower(0); //vacuum stops
                 moveBackward(15);
-                lower(270);
+                lower(200);
                 turnLeft(19);
+                miniAutoGoing = true;
 
+            } else {
+                stop();
+                miniAutoGoing = false;
             }
 
 
             //mini auto for low level and shared hub
             if (gamepad1.dpad_down) {
                 raise(-65);
+
             }
         }
     }
